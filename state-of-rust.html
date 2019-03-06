@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<!-- Page last generated 2019-03-06 13:48:16 +0000 -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>State Of Rust</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Rust, Rust programming language, rustlang, rust-lang, Mozilla Rust">
+    <meta name="description" content="A systems programming language that runs blazingly fast, prevents segfaults, and guarantees thread safety.">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/forge.css">
+    <link rel="stylesheet" href="/rust-forge/css/bootstrap.css">
+    <link rel="stylesheet" href="/rust-forge/css/style.css">
+    <link rel="stylesheet" href="/rust-forge/css/forge.css">
+  </head>
+
+  <body class="container">
+
+    <header>
+
+    <ul class="row menu">
+      <li class="col-xs-12 col-md-2">
+        <a href="index.html">
+	  <!-- FIXME: absolute urls -->
+          <img class="img-responsive" src="https://www.rust-lang.org/logos/rust-logo-blk.svg" onerror="this.src='https://www.rust-lang.org/logos/rust-logo-256x256-blk.png'" height="128" width="128" alt="Rust logo" />
+        </a>
+      </li>
+      <li class="col-xs-12 col-md-6 menu">
+	<h1>Rust Forge</h1>
+      </li>
+    </ul>
+    </header>
+
+    <div class="content"><p>This document is intended to document the current state of Rust’s various
+unstable features, their current status and what’s required next to
+be completed. It should be kept in sync with the
+<a href="https://github.com/rust-lang/rust/projects/8">State of Rust</a> board.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Team</th>
+      <th>Feature</th>
+      <th>Status</th>
+      <th>What’s next</th>
+      <th>Last update</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>compiler + lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/27060">repr(packed) allows invalid unaligned loads</a></td>
+      <td>Implemented</td>
+      <td>Blocked on <code class="highlighter-rouge">safe_packed_borrows</code></td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>compiler</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/26179">Implement likely/unlikely intrinsic (tracking issue for RFC 1131)</a></td>
+      <td>Implemented</td>
+      <td>Blocked on decision to deprecate or redesign</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>compiler</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/30450">RFC amendment #1384</a></td>
+      <td>Implemented</td>
+      <td>Blocked on promotion to error</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>compiler</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/40582">Specialization and lifetime dispatch</a></td>
+      <td>Unimplemented</td>
+      <td>Blocked on specialisation</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>compiler</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/38788">The “ptx-kernel” ABI</a></td>
+      <td>Implemented</td>
+      <td>Blocked on decision to stabilise</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>compiler</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/51088">The <code class="highlighter-rouge">#[wasm_custom_section]</code> attribute</a></td>
+      <td>Implemented</td>
+      <td>Blocked decision to change to a more general solution</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>compiler</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/52090">The <code class="highlighter-rouge">#[wasm_import_module]</code> attribute</a></td>
+      <td>Implemented</td>
+      <td>Blocked on documentation and small design consideration</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>compiler</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/38487">The <code class="highlighter-rouge">msp430-interrupt</code> calling convention/ABI</a></td>
+      <td>Implemented</td>
+      <td>Blocked on decision to stabilise</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>compiler</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/42202">The <code class="highlighter-rouge">thiscall</code> calling convention</a></td>
+      <td>Implemented</td>
+      <td>Blocked on decision to stabilise</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>compiler</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/40180">The <code class="highlighter-rouge">x86-interrupt</code> calling convention</a></td>
+      <td>Implemented</td>
+      <td>Blocked on LLVM bugs</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>compiler</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/33017">Trait bounds not checked on specializable associated types</a></td>
+      <td>Unimplemented</td>
+      <td>Blocked on implementation</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>compiler</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/34761"><code class="highlighter-rouge">#[may_dangle]</code>, a refined dropck escape hatch (RFC 1327)</a></td>
+      <td>Implemented</td>
+      <td>Blocked on decision to stabilise</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>compiler</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/44874"><code class="highlighter-rouge">arbitrary_self_types</code></a></td>
+      <td>Implemented</td>
+      <td>Blocked on RFC</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>compiler</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/46205"><code class="highlighter-rouge">incoherent_fundamental_impls</code> compatibility lint</a></td>
+      <td>Implemented</td>
+      <td>Hard error PR blocked on second crater run</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>compiler</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/37872"><code class="highlighter-rouge">legacy_directory_ownership</code> future-compatibility warnings</a></td>
+      <td>Implemented</td>
+      <td>Blocked on making the lint deny by default</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>compiler</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/42238"><code class="highlighter-rouge">parenthesized_params_in_types_and_modules</code> future-compatibility warnings</a></td>
+      <td>Implemented</td>
+      <td>Blocked on making the lint a hard error</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>compiler</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/46043"><code class="highlighter-rouge">safe_packed_borrows</code> compatibility lint</a></td>
+      <td>Implemented</td>
+      <td>Blocked on making the lint hard error</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>compiler</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/42326"><code class="highlighter-rouge">underscore_literal_suffix</code> future-compatibility warnings</a></td>
+      <td>Implemented</td>
+      <td>Blocked on making the lint a hard error</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>compiler</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/51443"><code class="highlighter-rouge">where_clauses_object_safety</code> future compatibility lint</a></td>
+      <td>Implemented</td>
+      <td>Blocked on making the lint deny by default</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>compiler</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/44265">🔬 generic associated types (GAT)</a></td>
+      <td>Unimplemented</td>
+      <td>Blocked on implementation</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>dev-tools + rustdoc</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/41574"><code class="highlighter-rouge">rustdoc --display-warnings</code></a></td>
+      <td>Implemented</td>
+      <td>Blocked on decision to stabilise</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>dev-tools</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/39699">Sanitizer support</a></td>
+      <td>Implemented</td>
+      <td>Blocked on decision to stabilise</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>dev-tools</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/43606">Stabilise <code class="highlighter-rouge">-Zsave-analysis</code></a></td>
+      <td>Unimplemented</td>
+      <td>Blocked on whether a new approach supersedes this</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>dev-tools</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/37403"><code class="highlighter-rouge">#[link(kind)]</code> connecting libraries on Windows</a></td>
+      <td>Implemented</td>
+      <td>Blocked on name decision and stabilisation</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>dev-tools</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/38338"><code class="highlighter-rouge">--print target-spec-json</code></a></td>
+      <td>Implemented</td>
+      <td>Blocked on decision to stabilise</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>dev-tools</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/42524"><code class="highlighter-rouge">-Z profile</code> </a></td>
+      <td>Implemented</td>
+      <td>Blocked on decision to stabilise</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>dev-tools</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/49359">libtest JSON output</a></td>
+      <td>Implemented</td>
+      <td>Blocked on decision to stabilise</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang + libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/35896">“macro naming and modularisation” (RFC #1561)</a></td>
+      <td>Implementation in progress</td>
+      <td>Blocked on unresolved design decisions</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang + libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/38356">RFC 1566: Procedural macros</a></td>
+      <td>Implementation in progress</td>
+      <td>Blocked on macros 1.2 stabilisation</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang + libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/27732">DST coercions (coerce_unsized, unsize)</a></td>
+      <td>Unimplemented</td>
+      <td>Blocked on creation of custom DST RFC</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang + libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/29625">Fn traits (<code class="highlighter-rouge">unboxed_closures</code> feature)</a></td>
+      <td>Implemented</td>
+      <td>Blocked on unresolved design decisions</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang + libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/29599"><code class="highlighter-rouge">concat_idents</code></a></td>
+      <td>Implemented</td>
+      <td>Blocked on macro improvements</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang + libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/27751"><code class="highlighter-rouge">std::raw</code></a></td>
+      <td>Unimplemented</td>
+      <td>Blocked on deprecation implementation</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/38864">‘Allow <code class="highlighter-rouge">Self</code> to appear in the where clause of trait impls’</a></td>
+      <td>Implemented</td>
+      <td>Blocked on <a href="https://github.com/rust-lang/rust/issues/35237">#35237</a></td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/35118">128-bit integer support (RFC 1504)</a></td>
+      <td>Implementation in progress</td>
+      <td>Blocked on enums with 128 discriminant</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/32838">Allocator traits and std::heap</a></td>
+      <td>Implementation in progress</td>
+      <td>Blocked on audit and design decisions</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/34981">Allow all literals in attributes (Tracking Issue for RFC #1559)</a></td>
+      <td>Implemented</td>
+      <td>Blocked on decision to stabilise</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/29864">Allowing overlapping implementations for marker trait.</a></td>
+      <td>Implemented</td>
+      <td>Blocked on documentation</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/37854">Exclusive range patterns</a></td>
+      <td>Implemented</td>
+      <td>Blocked on decision to stabilise</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/50907">Exhaustive integer patterns tracking issue</a></td>
+      <td>Implementation in progress</td>
+      <td>Blocked implementation being merged</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/32408">Naked fns (RFC #1201)</a></td>
+      <td>Implemented</td>
+      <td>Blocked on design feedback and the inline assembly feature.</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/28498">Nonparametric dropck (tracking issue for RFC 1238)</a></td>
+      <td>Implemented</td>
+      <td>Blocked on <code class="highlighter-rouge">#[may_dangle]</code> and <code class="highlighter-rouge">dropck_parametricity</code></td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/13231">Opt-in built-in bounds traits RFC tracker (optin_builtin_traits)</a></td>
+      <td>Implementation in progress</td>
+      <td>Blocked on conditional negative implements implementation</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/50512">Option::xor</a></td>
+      <td>Implemented</td>
+      <td>Blocked on decision to stable</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/35203">Patterns in functions without body</a></td>
+      <td>Implemented</td>
+      <td>Blocked on making lint deny by default</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/35121">Promoting <code class="highlighter-rouge">!</code> to a type (RFC 1216)</a></td>
+      <td>Implementation in progress</td>
+      <td>Blocked on decision around coercion</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/23121">RFC #495 (features <code class="highlighter-rouge">slice_patterns</code> and <code class="highlighter-rouge">advanced_slice_patterns</code>)</a></td>
+      <td>Implemented</td>
+      <td>Blocked on NLL</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/51085">RFC 1872: <code class="highlighter-rouge">exhaustive_patterns</code></a></td>
+      <td>Implemented</td>
+      <td>Blocked on the never type</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/51087">RFC 554: <code class="highlighter-rouge">pattern_parentheses</code> </a></td>
+      <td>Implemented</td>
+      <td>Blocked on stabilisation PR</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/40289">The <code class="highlighter-rouge">#[used]</code> attribute</a></td>
+      <td>Implemented</td>
+      <td>Blocked on decision to stabilise</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/34303">The <code class="highlighter-rouge">lifetime</code> specifier for <code class="highlighter-rouge">macro_rules!</code></a></td>
+      <td>Implemented</td>
+      <td>Waiting on 1.28.0 stable release</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/27336">Tracking Issue for RFC 213: Default Type Parameter Fallback</a></td>
+      <td>Implemented</td>
+      <td>Blocked on unresolved design decisions</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/39412">Tracking issue: declarative macros 2.0</a></td>
+      <td>Implementation in progress</td>
+      <td>Blocked on macro 2.0 hygiene RFC</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/41517">Trait aliases</a></td>
+      <td>Unimplemented</td>
+      <td>Blocked on implementation</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/43561">Tweaks to object safety (RFC 2027)</a></td>
+      <td>Unimplemented</td>
+      <td>Blocked on implementation</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/23416">Type ascription (tracking issue for RFC 803)</a></td>
+      <td>Implementation in progress</td>
+      <td>Blocked on decision to deprecate or redesign</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/42877">Unsized tuple coercion</a></td>
+      <td>Implemented</td>
+      <td>Blocked on decision to stabilise</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/32836">Untagged unions (RFC 1444)</a></td>
+      <td>Unimplemented</td>
+      <td>Blocked on unresolved questions.</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/29596"><code class="highlighter-rouge">#[link_args]</code></a></td>
+      <td>Implemented</td>
+      <td>Blocked on decision to stabilise</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/33158"><code class="highlighter-rouge">#[repr(packed = "N")]</code> (RFC 1399)</a></td>
+      <td>Unimplemented</td>
+      <td>Blocked on unresolved questions</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/29594"><code class="highlighter-rouge">#[thread_local]</code></a></td>
+      <td>Implemented</td>
+      <td>Blocked on Unsoundness with generators</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/41022"><code class="highlighter-rouge">:vis</code> macro matcher</a></td>
+      <td>Implemented</td>
+      <td>Blocked on <code class="highlighter-rouge">crate</code> becoming a keyword</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/48075"><code class="highlighter-rouge">?</code> macro repetition</a></td>
+      <td>Implemented</td>
+      <td>Blocked on decision around edition dependent behaviour</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/31436"><code class="highlighter-rouge">?</code> operator and <code class="highlighter-rouge">catch</code> expressions (RFC 243, <code class="highlighter-rouge">question_mark</code>)</a></td>
+      <td>Implemented</td>
+      <td>Blocked on reservation of <code class="highlighter-rouge">try</code> operator.</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/29722"><code class="highlighter-rouge">asm</code> (inline assembly)</a></td>
+      <td>Implemented</td>
+      <td>Blocked on unclear stability guarantees</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/29641"><code class="highlighter-rouge">box_patterns</code></a></td>
+      <td>Implemented</td>
+      <td>Blocked on <code class="highlighter-rouge">box_syntax</code> feature</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/29718"><code class="highlighter-rouge">cfg_target_vendor</code></a></td>
+      <td>Implemented</td>
+      <td>Blocked on decision for stabilisation</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/29642"><code class="highlighter-rouge">custom_attribute</code> &amp; <code class="highlighter-rouge">rustc_attrs</code></a></td>
+      <td>Unimplemented</td>
+      <td>Blocked on decision for deprecation or stabilisation</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/29635"><code class="highlighter-rouge">fundamental</code> feature</a></td>
+      <td>Unimplemented</td>
+      <td>Blocked on further dicussion</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/41620"><code class="highlighter-rouge">illegal_floating_point_literal_pattern</code> compatibility lint</a></td>
+      <td>Implemented</td>
+      <td>Blocked on making the lint deny by default</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/34511"><code class="highlighter-rouge">impl Trait</code> (RFC 1522, RFC 1951, RFC 2071)</a></td>
+      <td>Implementation in progress</td>
+      <td>Blocked elision, error messages, and <code class="highlighter-rouge">abstract type</code></td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/36887"><code class="highlighter-rouge">invalid_type_param_default</code> compatibility lint</a></td>
+      <td>Implemented</td>
+      <td>Blocked on making the lint a hard error</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/39207"><code class="highlighter-rouge">legacy_constructor_visibility</code> compatibility lint</a></td>
+      <td>Implemented</td>
+      <td>Blocked on making the lint a hard error</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/29602"><code class="highlighter-rouge">link_llvm_intrinsics</code></a></td>
+      <td>Implemented</td>
+      <td>Apparently permanently unstable</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/35625"><code class="highlighter-rouge">literal</code> fragment specifier (RFC 1576)</a></td>
+      <td>Implemented</td>
+      <td>Waiting on 1.28.0 stable release</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/29598"><code class="highlighter-rouge">log_syntax</code>, <code class="highlighter-rouge">trace_macros</code></a></td>
+      <td>Implemented</td>
+      <td>Blocked on decision to stabilise</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/29634"><code class="highlighter-rouge">main</code> feature</a></td>
+      <td>Implemented</td>
+      <td>Blocked on unclear direction</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/29639"><code class="highlighter-rouge">no_core</code> stabilization</a></td>
+      <td>Implemented</td>
+      <td>Blocked on lang items</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/29628"><code class="highlighter-rouge">on_unimplemented</code> feature</a></td>
+      <td>Implemented</td>
+      <td>Blocked on decision to stabilise</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/29597"><code class="highlighter-rouge">plugin</code>, <code class="highlighter-rouge">plugin_registrar</code> features</a></td>
+      <td>Implemented</td>
+      <td>Blocked on macros 2.0</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/34537"><code class="highlighter-rouge">private_in_public</code> compatibility lint.</a></td>
+      <td>Implemented</td>
+      <td>Blocked on PR to make lint deny by default</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/29601"><code class="highlighter-rouge">quote</code> feature</a></td>
+      <td>Implemented</td>
+      <td>Blocked on deprecation by macros 2.0</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/39216"><code class="highlighter-rouge">resolve_trait_on_defaulted_unit</code> compatibility lint</a></td>
+      <td>Implemented</td>
+      <td>Blocked on making the lint a hard error</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/36247"><code class="highlighter-rouge">safe_extern_statics</code> compatibility lint</a></td>
+      <td>Implemented</td>
+      <td>Blocked on making the lint a hard error</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/37390"><code class="highlighter-rouge">use $crate;</code> compatibility warning</a></td>
+      <td>Implemented</td>
+      <td>Blocked on making the lint deny by default</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/32311"><code class="highlighter-rouge">{Range, RangeFrom, RangeTo}::contains</code></a></td>
+      <td>Implemented</td>
+      <td>Blocked on <a href="https://github.com/rust-lang/rust/issues/32311#issuecomment-312388435">unresolved questions</a></td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/24111">const fn tracking issue (RFC 911)</a></td>
+      <td>Implemented</td>
+      <td>Blocked on unresolved design decisions</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/28238">constant prop not causing add’l errors (RFC #1229)</a></td>
+      <td>Unimplemented</td>
+      <td>Currently unclear on what is required next</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/28979">non-ASCII identifiers (feature “non_ascii_idents”)</a></td>
+      <td>Implemented</td>
+      <td>Blocked on <a href="https://github.com/rust-lang/rfcs/pull/2457">allow non-ASCII RFC</a> decision</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/15701">stmt_expr_attributes: Add attributes to expressions, etc.</a></td>
+      <td>Implemented</td>
+      <td>Blocked on stabilisation of attributes on expressions and blocks</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/29603">the <code class="highlighter-rouge">linkage</code> feature</a></td>
+      <td>Implemented</td>
+      <td>Blocked on <a href="https://github.com/rust-lang/rust/issues/18804">#18804</a></td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/29633">the <code class="highlighter-rouge">start</code> feature</a></td>
+      <td>Implemented</td>
+      <td>Blocked on decision to stabilise</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>lang</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/29661"><code class="highlighter-rouge">associated_type_defaults</code></a></td>
+      <td>Unimplemented</td>
+      <td>Blocked on decision on deprecation or semantic change</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libes</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/31844">Specialization (RFC 1210)</a></td>
+      <td>Implemented</td>
+      <td>Blocked on restrictions of lifetime dispatch</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/46316">API convention for blocking-, timeout-, and/or deadline-related functions</a></td>
+      <td>Unimplemented</td>
+      <td>Blocked on FCP</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/35428">Add <code class="highlighter-rouge">is_empty</code> function to <code class="highlighter-rouge">ExactSizeIterator</code></a></td>
+      <td>Unimplemented</td>
+      <td>Blocked on unresolved design decisions</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/32976">Adding more atomic integer types</a></td>
+      <td>Implementation in progress</td>
+      <td>Blocked on atomic <code class="highlighter-rouge">128</code> bit integers.</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/44286">Allow a <code class="highlighter-rouge">HashMap</code> and <code class="highlighter-rouge">BTreeMap</code> entry to be replaced.</a></td>
+      <td>Implemented</td>
+      <td>Blocked on decision to stabilise</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/50186">Cell::update</a></td>
+      <td>Implemented</td>
+      <td>Blocked on unresolved questions</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/42774">Custom allocators in standard collections</a></td>
+      <td>Implementation in progress</td>
+      <td>Blocked on <a href="https://github.com/rust-lang/rust/issues/47043">#47043</a> and <a href="https://github.com/rust-lang/rust/issues/50882">#50882</a></td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/27778">FixedSizeArray trait</a></td>
+      <td>Implemented</td>
+      <td>Blocked on const generics</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/28796">FnBox()</a></td>
+      <td>Unimplemented</td>
+      <td>Blocked on issues with the borrow checker</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/44582">IP constructors</a></td>
+      <td>Implementation in progress</td>
+      <td>Blocked on moving the implementation to use associated consts</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/32463">Integer methods for Wrapping</a></td>
+      <td>Implementation in progress</td>
+      <td>Some methods are still missing implementations.</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/27709">Ipv{4,6}Addr convenience methods</a></td>
+      <td>Implementation in progress</td>
+      <td>Blocked on <a href="https://github.com/rust-lang/rust/pull/51832">#51832</a></td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/47402">Path/PathBuf normalization methods</a></td>
+      <td>Unimplemented</td>
+      <td>Blocked on implementation</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/32837">Pluggable panic implementations (RFC 1513)</a></td>
+      <td>Unimplemented</td>
+      <td>Blocked on unresolved design decisions</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/44839">RFC 2045: improving <code class="highlighter-rouge">#[target_feature]</code></a></td>
+      <td>Implemented</td>
+      <td>Blocked on documentation and stabilisation</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/48763">Reversing the bit pattern in an integer</a></td>
+      <td>Implemented</td>
+      <td>Blocked on decision to stabilise</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/27731">SIMD support</a></td>
+      <td>Implementation in progress</td>
+      <td>Blocked on implementation</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/50202">Tracking Issue: Duration::{as_nanos, as_micros, as_millis}</a></td>
+      <td>Implemented</td>
+      <td>Blocked on decision to stable</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/37572">TrustedLen (<code class="highlighter-rouge">trusted_len</code>)</a></td>
+      <td>Implemented</td>
+      <td>Blocked on specialisation</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/33417">TryFrom/TryInto traits</a></td>
+      <td>Implemented</td>
+      <td>Blocked on the <code class="highlighter-rouge">!</code>/never type</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/49726">UnicodeVersion and UNICODE_VERSION</a></td>
+      <td>Implemented</td>
+      <td>Blocked on concerns on whether updating const values is a breaking change</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/40062">Vec::remove_item</a></td>
+      <td>Implemented</td>
+      <td>Blocked on unresolved concerns</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/41758">Vec::resize_default</a></td>
+      <td>Implemented</td>
+      <td>Blocked on decision to stabilise</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/29553"><code class="highlighter-rouge">#[bench]</code> and benchmarking support</a></td>
+      <td>Implemented</td>
+      <td>Blocked on <a href="https://github.com/rust-lang/rfcs/pull/2360"><code class="highlighter-rouge">black_box</code> RFC</a></td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/47336"><code class="highlighter-rouge">Box::into_raw_non_null</code></a></td>
+      <td>Implemented</td>
+      <td>Blocked on decision to stabilise</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/42788"><code class="highlighter-rouge">Read::initializer</code></a></td>
+      <td>Implemented</td>
+      <td>Blocked on design decisions</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/47338"><code class="highlighter-rouge">Result&lt;Option&gt;</code> and <code class="highlighter-rouge">Option&lt;Result&gt;</code> Conversion</a></td>
+      <td>Implemented</td>
+      <td>Blocked on unresolved questions</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/41263"><code class="highlighter-rouge">ToOwned::clone_into</code></a></td>
+      <td>Implemented</td>
+      <td>Blocked on concerns</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/43244"><code class="highlighter-rouge">Vec::drain_filter</code> and <code class="highlighter-rouge">LinkedList::drain_filter</code></a></td>
+      <td>Implemented</td>
+      <td>Blocked on design decisions</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/47115"><code class="highlighter-rouge">exact_chunks,exact_chunks_mut</code></a></td>
+      <td>Implemented</td>
+      <td>Blocked on unresolved questions</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/42327"><code class="highlighter-rouge">ops::Try</code></a></td>
+      <td>Implemented?</td>
+      <td>Unclear on what is required next</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/41079"><code class="highlighter-rouge">ptr::offset_to</code></a></td>
+      <td>Deprecated</td>
+      <td>Blocked on removal</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/27747"><code class="highlighter-rouge">slice_concat_ext</code></a></td>
+      <td>Implemented</td>
+      <td>Blocked on documentation and decision to stabilise</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/31343"><code class="highlighter-rouge">std::io::{set_panic, set_print}</code></a></td>
+      <td>Implemented</td>
+      <td>Blocked on decision to stabilise</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/42168"><code class="highlighter-rouge">step_trait</code> stabilization</a></td>
+      <td>Implementation in progress</td>
+      <td>Blocked on replacement methods and <code class="highlighter-rouge">TrustedLen</code></td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/33577"><code class="highlighter-rouge">sync::Once</code> poisoning</a></td>
+      <td>Implemented</td>
+      <td>Blocked on inactivity</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/27800">channel selection</a></td>
+      <td>Implemented</td>
+      <td>Blocked on decision to stabilise the <code class="highlighter-rouge">select!</code> macro</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/27812">crates that are compiler dependencies</a></td>
+      <td>Unimplemented</td>
+      <td>Blocked on unclear direction</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/27794">extra linked list methods</a></td>
+      <td>Implemented</td>
+      <td>Blocked on decision to stabilise</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/27783">location of facade crates</a></td>
+      <td>Implementation in progress</td>
+      <td>Blocked on <a href="https://github.com/rust-lang/rfcs/pull/2480">RFC 2480</a></td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/27791">str escaping</a></td>
+      <td>Implemented</td>
+      <td>Blocked on stabilisation PR</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/27721">string patterns</a></td>
+      <td>Unimplemented</td>
+      <td>Blocked on <a href="https://github.com/rust-lang/rust/issues/49802">RFC 2295</a></td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/27745">type_id</a></td>
+      <td>Implemented</td>
+      <td>Blocked on FCP confusion</td>
+      <td>2018-07-14</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td><a href="https://github.com/rust-lang/rust/issues/51984">write_all_at/read_exact_at convenience methods </a></td>
+      <td>Implemented</td>
+      <td>Blocked on decision to stabilise</td>
+      <td>2018-07-14</td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
+
+  </body>
+</html>
